@@ -1,398 +1,261 @@
 
-/* =====================================
-   SBC EVENTS
-   Mobile-first design system
-===================================== */
-
-/* FONTS */
-
-@font-face {
-    font-family: "Industry";
-    src: url("../fonts/IndustryTest-Bold.otf") format("opentype");
-    font-weight: 700;
-}
-
-@font-face {
-    font-family: "Industry";
-    src: url("../fonts/IndustryTest-Black.otf") format("opentype");
-    font-weight: 900;
-}
-
-@font-face {
-    font-family: "Apotek";
-    src: url("../fonts/fonnts.com-Apotek_Regular.otf") format("opentype");
-    font-weight: 400;
-}
-
-@font-face {
-    font-family: "Apotek";
-    src: url("../fonts/fonnts.com-Apotek_Medium.otf") format("opentype");
-    font-weight: 500;
-}
-
-@font-face {
-    font-family: "Apotek";
-    src: url("../fonts/fonnts.com-Apotek_Bold.otf") format("opentype");
-    font-weight: 700;
-}
-
-/* VARIABLES */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
 
 :root {
-    --navy: #091d3c;
-    --navy-dark: #06152d;
-    --blue: #9dcbeb;
-    --white: #ffffff;
-    --background: #f3f6f9;
-    --gray: #697789;
-    --border: #e0e6ed;
+  --navy: #091d3c;
+  --navy-light: #102c50;
+  --blue: #9dcbeb;
+  --white: #ffffff;
+  --muted: #aab8ca;
+  --line: rgba(255,255,255,0.14);
 }
-
-/* RESET */
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
+  box-sizing: border-box;
 }
 
 body {
-    background: var(--background);
-    color: var(--navy);
-    font-family: "Apotek", Arial, sans-serif;
-    line-height: 1.5;
-    min-height: 100vh;
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 75% 25%, rgba(53, 104, 151, 0.22), transparent 38%),
+    var(--navy);
+  color: var(--white);
+  font-family: 'DM Sans', Arial, sans-serif;
 }
 
-a {
-    color: inherit;
-    text-decoration: none;
+.app-header,
+.app-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 6%;
 }
-
-/* HEADER */
 
 .app-header {
-    height: 72px;
-    padding: 0 7%;
-    background: var(--navy);
-    color: var(--white);
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  border-bottom: 1px solid var(--line);
 }
 
 .brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.12em;
 }
 
 .brand-mark {
-    font-family: "Industry", sans-serif;
-    font-size: 27px;
-    font-weight: 900;
-    letter-spacing: -1px;
+  font-size: 23px;
+  font-weight: 700;
 }
 
 .brand-divider {
-    height: 24px;
-    width: 1px;
-    background: rgba(255,255,255,0.4);
+  width: 1px;
+  height: 22px;
+  background: var(--blue);
 }
 
-.brand-name {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2px;
+.brand-name,
+.header-label,
+.app-footer {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  font-weight: 700;
 }
 
-.header-label {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: var(--blue);
+.header-label,
+.app-footer {
+  color: var(--muted);
 }
 
-/* WELCOME */
-
-.welcome {
-    background: var(--navy);
-    color: var(--white);
-    padding: 65px 10% 75px;
+.login-main {
+  width: min(1120px, 88%);
+  min-height: calc(100vh - 145px);
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 90px;
+  padding: 75px 0;
 }
 
-.section-label {
-    color: #5b8eb7;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    margin-bottom: 12px;
+.eyebrow {
+  color: var(--blue);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  margin: 0 0 20px;
 }
 
-.welcome .section-label {
-    color: var(--blue);
+.login-intro h1 {
+  font-size: clamp(48px, 6vw, 76px);
+  line-height: 0.99;
+  letter-spacing: -0.065em;
+  margin: 0;
 }
 
-.welcome h1 {
-    font-family: "Industry", sans-serif;
-    font-size: clamp(48px, 7vw, 76px);
-    font-weight: 900;
-    line-height: 0.98;
-    letter-spacing: -1.5px;
+.login-intro h1 span {
+  color: var(--blue);
 }
 
-.welcome h1 span {
-    color: var(--blue);
+.intro-copy {
+  max-width: 410px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.8;
+  margin-top: 28px;
 }
 
-.welcome-description {
-    margin-top: 22px;
-    max-width: 390px;
-    color: #d0d9e4;
-    font-size: 15px;
+.login-panel {
+  background: rgba(255,255,255,0.055);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 38px;
+  box-shadow: 0 25px 80px rgba(0,0,0,0.18);
 }
 
-/* EVENT SECTION */
-
-.event-section {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 55px 7% 70px;
+.login-panel-heading h2 {
+  font-size: 30px;
+  letter-spacing: -0.04em;
+  margin: 0 0 10px;
 }
 
-.section-heading {
-    display: flex;
-    justify-content: space-between;
-    align-items: end;
-    margin-bottom: 25px;
+.login-panel-heading > p:last-child {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 0 0 32px;
 }
 
-.section-heading h2,
-.about-strip h2 {
-    font-family: "Industry", sans-serif;
-    font-size: 32px;
-    line-height: 1.1;
+.login-panel form label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  font-weight: 700;
+  margin-bottom: 10px;
 }
 
-.event-count {
-    font-size: 10px;
-    color: var(--gray);
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    padding-bottom: 5px;
+.login-panel input {
+  width: 100%;
+  padding: 16px;
+  background: rgba(0,0,0,0.16);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  color: white;
+  font: inherit;
+  font-size: 14px;
+  outline: none;
 }
 
-/* EVENT CARDS */
-
-.event-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-    min-height: 310px;
-    padding: 25px 28px 20px;
-    margin-bottom: 18px;
-
-    border-radius: 5px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+.login-panel input:focus {
+  border-color: var(--blue);
 }
 
-.event-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 25px rgba(9, 29, 60, 0.12);
+.login-panel input::placeholder {
+  color: #8090a4;
 }
 
-.featured-event {
-    background: var(--navy);
-    color: var(--white);
+.login-panel button {
+  width: 100%;
+  padding: 17px;
+  margin-top: 15px;
+  border: 0;
+  border-radius: 3px;
+  background: var(--blue);
+  color: var(--navy);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
 }
 
-.speaker-event {
-    background: var(--white);
-    color: var(--navy);
-    border: 1px solid var(--border);
+.login-panel button:hover {
+  background: white;
+  transform: translateY(-1px);
 }
 
-.event-card-top,
-.event-card-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.login-panel button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+  transform: none;
 }
 
-.event-tag {
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    background: rgba(157, 203, 235, 0.15);
-    color: var(--blue);
-    padding: 7px 10px;
+.login-message {
+  min-height: 20px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--muted);
+  margin: 14px 0 0;
 }
 
-.speaker-event .event-tag {
-    background: #edf4f9;
-    color: #426f94;
+.login-message.success {
+  color: #a9e5c1;
 }
 
-.event-arrow {
-    font-size: 23px;
-    color: var(--blue);
+.login-message.error {
+  color: #ffb0b0;
 }
 
-.speaker-event .event-arrow {
-    color: var(--navy);
+.login-note {
+  display: flex;
+  gap: 12px;
+  border-top: 1px solid var(--line);
+  padding-top: 22px;
+  margin-top: 24px;
 }
 
-.event-card-content {
-    padding: 25px 0;
+.note-mark {
+  display: grid;
+  place-items: center;
+  flex: 0 0 19px;
+  height: 19px;
+  border: 1px solid var(--blue);
+  border-radius: 50%;
+  color: var(--blue);
+  font-size: 11px;
 }
 
-.event-date {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    color: var(--blue);
-    margin-bottom: 10px;
+.login-note p {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.7;
+  margin: 0;
 }
-
-.speaker-event .event-date {
-    color: #58728e;
-}
-
-.event-card h3 {
-    font-family: "Industry", sans-serif;
-    font-size: clamp(38px, 5vw, 54px);
-    line-height: 0.95;
-    font-weight: 900;
-    margin-bottom: 16px;
-}
-
-.event-description {
-    max-width: 430px;
-    font-size: 14px;
-    color: #cbd5e1;
-}
-
-.speaker-event .event-description {
-    color: var(--gray);
-}
-
-.event-card-bottom {
-    border-top: 1px solid rgba(255,255,255,0.2);
-    padding-top: 16px;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    color: #d4dce6;
-}
-
-.speaker-event .event-card-bottom {
-    border-color: var(--border);
-    color: var(--gray);
-}
-
-.event-link {
-    color: var(--blue);
-}
-
-.speaker-event .event-link {
-    color: var(--navy);
-}
-
-/* ABOUT */
-
-.about-strip {
-    background: #e7eef5;
-    padding: 45px 10%;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 40px;
-}
-
-.about-strip > p {
-    max-width: 450px;
-    color: #526174;
-    font-size: 14px;
-}
-
-/* FOOTER */
 
 .app-footer {
-    background: var(--navy-dark);
-    color: #aab8c8;
-    padding: 23px 7%;
+  border-top: 1px solid var(--line);
+}
 
-    display: flex;
-    justify-content: space-between;
+@media (max-width: 760px) {
+  .app-header,
+  .app-footer {
+    padding: 20px 6%;
+  }
+
+  .login-main {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 55px 0;
+  }
+
+  .login-intro h1 {
+    font-size: clamp(48px, 13vw, 66px);
+  }
+
+  .intro-copy {
+    margin-top: 18px;
+    font-size: 13px;
+  }
+
+  .login-panel {
+    padding: 27px 23px;
+  }
+
+  .app-footer {
+    font-size: 8px;
     gap: 15px;
-
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-}
-
-/* MOBILE */
-
-@media (max-width: 650px) {
-
-    .app-header {
-        height: 64px;
-        padding: 0 6%;
-    }
-
-    .welcome {
-        padding: 55px 7% 60px;
-    }
-
-    .welcome h1 {
-        font-size: 54px;
-    }
-
-    .event-section {
-        padding: 42px 6% 50px;
-    }
-
-    .section-heading h2 {
-        font-size: 29px;
-    }
-
-    .event-card {
-        min-height: 300px;
-        padding: 22px 20px 18px;
-    }
-
-    .event-card h3 {
-        font-size: 45px;
-    }
-
-    .event-card-bottom {
-        font-size: 9px;
-    }
-
-    .about-strip {
-        padding: 40px 7%;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-    }
-
-    .app-footer {
-        padding: 22px 6%;
-        font-size: 8px;
-    }
-}
-
-@media (max-width: 360px) {
-    .event-card-bottom {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
+  }
 }
