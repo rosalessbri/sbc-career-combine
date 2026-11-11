@@ -6,6 +6,8 @@ const emailInput = document.querySelector("#email");
 const submitButton = document.querySelector("#login-button");
 const message = document.querySelector("#login-message");
 
+const HOME_URL = `${window.location.origin}/`;
+
 function showMessage(text, type = "info") {
   message.textContent = text;
   message.className = `login-message ${type}`;
@@ -17,7 +19,7 @@ form.addEventListener("submit", async (event) => {
   const email = emailInput.value.trim().toLowerCase();
 
   if (!email) {
-    showMessage("Please enter your email address", "Error");
+    showMessage("Please enter your email address.", "error");
     return;
   }
 
@@ -29,7 +31,7 @@ form.addEventListener("submit", async (event) => {
     email,
     options: {
       shouldCreateUser: false,
-      emailRedirectTo: `${window.location.origin}/career-combine/`
+      emailRedirectTo: HOME_URL
     }
   });
 
@@ -47,15 +49,17 @@ form.addEventListener("submit", async (event) => {
 
   showMessage(
     "Check your inbox! If your email is registered, you'll receive a sign-in link shortly.",
-    "Success"
+    "success"
   );
 
   form.reset();
 });
 
-// If someone is already signed in, send them to the event.
-const { data: { session } } = await supabase.auth.getSession();
+// If someone is already signed in, send them to the homepage.
+const {
+  data: { session }
+} = await supabase.auth.getSession();
 
 if (session) {
-  window.location.replace("/career-combine/");
+  window.location.replace(HOME_URL);
 }
