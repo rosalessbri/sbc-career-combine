@@ -5,91 +5,243 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#091d3c">
+  <title>Career Combine | SBC</title>
 
-  <title>Career Combine | SBC Events</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  <link rel="stylesheet" href="/assets/css/style.css">
+    body {
+      min-height: 100vh;
+      background: #f3f5f8;
+      color: #091d3c;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      background: #091d3c;
+      color: white;
+      padding: 22px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+
+    .brand span {
+      color: #9dcbeb;
+    }
+
+    #logout-button {
+      background: transparent;
+      border: 1px solid #9dcbeb;
+      color: white;
+      padding: 9px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    main {
+      width: min(1000px, 88%);
+      margin: 55px auto;
+    }
+
+    .eyebrow {
+      color: #52799b;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: clamp(38px, 7vw, 68px);
+      line-height: 1;
+      margin-bottom: 18px;
+    }
+
+    .intro {
+      color: #647184;
+      font-size: 17px;
+      line-height: 1.6;
+      max-width: 600px;
+    }
+
+    .event-details {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin: 38px 0;
+    }
+
+    .detail {
+      background: white;
+      border-radius: 10px;
+      padding: 22px;
+      border: 1px solid #e3e8ee;
+    }
+
+    .detail-label {
+      color: #718096;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      margin-bottom: 9px;
+      text-transform: uppercase;
+    }
+
+    .detail-value {
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    h2 {
+      font-size: 23px;
+      margin-bottom: 18px;
+    }
+
+    .quick-links {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .quick-link {
+      background: white;
+      border: 1px solid #e3e8ee;
+      border-radius: 10px;
+      padding: 25px;
+    }
+
+    .quick-link h3 {
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+
+    .quick-link p {
+      color: #718096;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    #loading {
+      text-align: center;
+      padding: 100px 20px;
+      color: #647184;
+    }
+
+    #dashboard {
+      display: none;
+    }
+
+    footer {
+      margin-top: 60px;
+      padding: 25px 6%;
+      color: #8490a0;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    @media (max-width: 650px) {
+      main {
+        margin: 38px auto;
+      }
+
+      .event-details {
+        grid-template-columns: 1fr;
+      }
+
+      .quick-links {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="brand">SBC<span>.</span></div>
+    <button id="logout-button" type="button">SIGN OUT</button>
+  </header>
+
+  <div id="loading">Loading your event experience...</div>
+
+  <main id="dashboard">
+    <p class="eyebrow">Penn State Sports Business Conference</p>
+    <h1>CAREER<br>COMBINE.</h1>
+    <p class="intro">
+      Your event-day hub. Find the information you need,
+      stay up to date, and make the most of your Career Combine experience.
+    </p>
+
+    <section class="event-details">
+      <div class="detail">
+        <p class="detail-label">Date</p>
+        <p class="detail-value">December 4, 2026</p>
+      </div>
+
+      <div class="detail">
+        <p class="detail-label">Time</p>
+        <p class="detail-value">4:00–7:00 PM</p>
+      </div>
+
+      <div class="detail">
+        <p class="detail-label">Location</p>
+        <p class="detail-value">Nittany Lion Inn</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>YOUR EVENT HUB</h2>
+
+      <div class="quick-links">
+        <article class="quick-link">
+          <h3>Event Schedule</h3>
+          <p>View the event timeline and what to expect throughout the evening.</p>
+        </article>
+
+        <article class="quick-link">
+          <h3>Attending Organizations</h3>
+          <p>Explore the organizations participating in Career Combine.</p>
+        </article>
+
+        <article class="quick-link">
+          <h3>Event Information</h3>
+          <p>Find important event details and attendee information.</p>
+        </article>
+
+        <article class="quick-link">
+          <h3>Need Help?</h3>
+          <p>Find assistance during the event.</p>
+        </article>
+      </div>
+    </section>
+
+    <footer>
+      BUILT BY SBC · PENN STATE
+    </footer>
+  </main>
+
   <script type="module">
     import { requireAuth, signOut } from "../assets/js/protected.js";
 
     const session = await requireAuth();
 
     if (session) {
-      document.querySelector("#loading").hidden = true;
-      document.querySelector("#dashboard").hidden = false;
-
-      document.querySelector("#attendee-email").textContent =
-        session.user.email;
+      document.querySelector("#loading").style.display = "none";
+      document.querySelector("#dashboard").style.display = "block";
     }
 
-    document.querySelector("#logout-button").addEventListener(
-      "click",
-      signOut
-    );
+    document.querySelector("#logout-button").addEventListener("click", signOut);
   </script>
-</head>
-
-<body>
-
-  <header class="app-header">
-    <a href="/" class="brand">
-      <span class="brand-mark">SBC</span>
-      <span class="brand-divider"></span>
-      <span class="brand-name">EVENTS</span>
-    </a>
-
-    <span class="header-label">PENN STATE</span>
-  </header>
-
-  <main class="login-main" style="display:block; padding-top:80px;">
-
-    <section id="loading">
-      <p class="eyebrow">SBC EVENTS</p>
-      <h1>Verifying access...</h1>
-    </section>
-
-    <section id="dashboard" hidden>
-
-      <p class="eyebrow">SPORTS BUSINESS CONFERENCE</p>
-
-      <h1>
-        You're in.<br>
-        <span style="color:#9dcbeb;">Welcome to SBC.</span>
-      </h1>
-
-      <p class="intro-copy">
-        Your Career Combine experience starts here.
-      </p>
-
-      <div class="login-panel" style="margin-top:40px;">
-        <p class="eyebrow">DECEMBER 04, 2026</p>
-
-        <h2>Career Combine</h2>
-
-        <p style="color:#aab8ca; line-height:1.8;">
-          4:00 PM – 7:00 PM<br>
-          Nittany Lion Inn<br>
-          Penn State University Park
-        </p>
-
-        <div style="border-top:1px solid rgba(255,255,255,.14); padding-top:20px; margin-top:25px;">
-          <p class="eyebrow">SIGNED IN AS</p>
-          <p id="attendee-email"></p>
-        </div>
-
-        <button id="logout-button" type="button">
-          SIGN OUT
-        </button>
-      </div>
-
-    </section>
-
-  </main>
-
-  <footer class="app-footer">
-    <span>SBC · PENN STATE</span>
-    <span>BUILT TO BE UNRIVALED.</span>
-  </footer>
-
 </body>
 </html>
