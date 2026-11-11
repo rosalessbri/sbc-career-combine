@@ -39,13 +39,15 @@ form.addEventListener("submit", async (event) => {
   submitButton.textContent = "SEND SIGN-IN LINK";
 
   if (error) {
-    console.error(error);
-    showMessage(
-      "We couldn't send a sign-in link. Check that your email is registered and try again.",
-      "error"
-    );
-    return;
-  }
+  console.error("Supabase login error:", error);
+
+  showMessage(
+    `Login error: ${error.message}`,
+    "error"
+  );
+
+  return;
+}
 
   showMessage(
     "Check your inbox! If your email is registered, you'll receive a sign-in link shortly.",
