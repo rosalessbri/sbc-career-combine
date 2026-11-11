@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#091d3c">
+
+  <title>Career Combine | SBC Events</title>
+
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <script type="module">
+    import { requireAuth, signOut } from "../assets/js/protected.js";
+
+    const session = await requireAuth();
+
+    if (session) {
+      document.querySelector("#loading").hidden = true;
+      document.querySelector("#dashboard").hidden = false;
+
+      document.querySelector("#attendee-email").textContent =
+        session.user.email;
+    }
+
+    document.querySelector("#logout-button").addEventListener(
+      "click",
+      signOut
+    );
+  </script>
+</head>
+
+<body>
+
+  <header class="app-header">
+    <a href="/" class="brand">
+      <span class="brand-mark">SBC</span>
+      <span class="brand-divider"></span>
+      <span class="brand-name">EVENTS</span>
+    </a>
+
+    <span class="header-label">PENN STATE</span>
+  </header>
+
+  <main class="login-main" style="display:block; padding-top:80px;">
+
+    <section id="loading">
+      <p class="eyebrow">SBC EVENTS</p>
+      <h1>Verifying access...</h1>
+    </section>
+
+    <section id="dashboard" hidden>
+
+      <p class="eyebrow">SPORTS BUSINESS CONFERENCE</p>
+
+      <h1>
+        You're in.<br>
+        <span style="color:#9dcbeb;">Welcome to SBC.</span>
+      </h1>
+
+      <p class="intro-copy">
+        Your Career Combine experience starts here.
+      </p>
+
+      <div class="login-panel" style="margin-top:40px;">
+        <p class="eyebrow">DECEMBER 04, 2026</p>
+
+        <h2>Career Combine</h2>
+
+        <p style="color:#aab8ca; line-height:1.8;">
+          4:00 PM – 7:00 PM<br>
+          Nittany Lion Inn<br>
+          Penn State University Park
+        </p>
+
+        <div style="border-top:1px solid rgba(255,255,255,.14); padding-top:20px; margin-top:25px;">
+          <p class="eyebrow">SIGNED IN AS</p>
+          <p id="attendee-email"></p>
+        </div>
+
+        <button id="logout-button" type="button">
+          SIGN OUT
+        </button>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="app-footer">
+    <span>SBC · PENN STATE</span>
+    <span>BUILT TO BE UNRIVALED.</span>
+  </footer>
+
+</body>
+</html>
