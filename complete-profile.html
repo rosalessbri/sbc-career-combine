@@ -1,0 +1,273 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Complete Your Profile | SBC Events</title>
+
+  <style>
+    @font-face {
+      font-family: "Industry";
+      src: url("/assets/fonts/IndustryTest-Bold.otf");
+      font-weight: 700;
+    }
+
+    :root {
+      --navy: #091d3c;
+      --blue: #9dcbeb;
+      --gray: #c6c6c6;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--navy);
+      color: var(--white);
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 25px 6%;
+      border-bottom: 1px solid rgba(255,255,255,.15);
+      font-family: Industry, Arial, sans-serif;
+      letter-spacing: 1px;
+    }
+
+    header span {
+      color: var(--blue);
+    }
+
+    main {
+      width: min(480px, 90%);
+      margin: auto;
+      padding: 55px 0;
+    }
+
+    .eyebrow {
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    h1 {
+      font-family: Industry, Arial, sans-serif;
+      font-size: clamp(36px, 7vw, 54px);
+      line-height: 1;
+      margin: 14px 0;
+      text-transform: uppercase;
+    }
+
+    .intro {
+      color: var(--gray);
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      margin: 20px 0 8px;
+      text-transform: uppercase;
+    }
+
+    input {
+      width: 100%;
+      padding: 16px;
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 4px;
+      background: rgba(255,255,255,.08);
+      color: white;
+      font-size: 16px;
+    }
+
+    input:focus {
+      outline: 2px solid var(--blue);
+      border-color: transparent;
+    }
+
+    input[readonly] {
+      color: var(--gray);
+      opacity: .8;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 28px;
+      padding: 17px;
+      border: 0;
+      border-radius: 4px;
+      background: var(--blue);
+      color: var(--navy);
+      font-family: Industry, Arial, sans-serif;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: .6;
+      cursor: wait;
+    }
+
+    #message {
+      min-height: 24px;
+      margin-top: 18px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .error {
+      color: #ffaaaa;
+    }
+
+    .success {
+      color: var(--blue);
+    }
+  </style>
+</head>
+
+<body>
+  <header>SBC <span>EVENTS</span></header>
+
+  <main>
+    <div class="eyebrow">ACCOUNT SETUP</div>
+    <h1>Let's get you set up.</h1>
+
+    <p class="intro">
+      Welcome to SBC Events! Before accessing your event dashboard,
+      tell us a little about yourself.
+    </p>
+
+    <form id="profile-form">
+      <label for="first-name">First Name</label>
+      <input
+        id="first-name"
+        type="text"
+        placeholder="First name"
+        autocomplete="given-name"
+        required
+      >
+
+      <label for="last-name">Last Name</label>
+      <input
+        id="last-name"
+        type="text"
+        placeholder="Last name"
+        autocomplete="family-name"
+        required
+      >
+
+      <label for="email">Email Address</label>
+      <input id="email" type="email" readonly>
+
+      <button id="submit-button" type="submit">
+        COMPLETE ACCOUNT SETUP
+      </button>
+
+      <p id="message" role="status"></p>
+    </form>
+  </main>
+
+  <script type="module">
+    import { supabase } from "/assets/js/supabase.js";
+
+    const form = document.querySelector("#profile-form");
+    const firstNameInput = document.querySelector("#first-name");
+    const lastNameInput = document.querySelector("#last-name");
+    const emailInput = document.querySelector("#email");
+    const submitButton = document.querySelector("#submit-button");
+    const message = document.querySelector("#message");
+
+    function showMessage(text, type = "") {
+      message.textContent = text;
+      message.className = type;
+    }
+
+    async function initializePage() {
+      const {
+        data: { session },
+        error
+      } = await supabase.auth.getSession();
+
+      if (error || !session) {
+        showMessage(
+          "Your invitation may have expired. Please ask SBC for a new invitation.",
+          "error"
+        );
+        form.hidden = true;
+        return;
+      }
+
+      emailInput.value = session.user.email || "";
+
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("full_name")
+        .eq("id", session.user.id)
+        .maybeSingle();
+
+      if (profile?.full_name) {
+        window.location.replace("/dashboard.html");
+      }
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const firstName = firstNameInput.value.trim();
+      const lastName = lastNameInput.value.trim();
+
+      if (!firstName || !lastName) {
+        showMessage("Please enter your first and last name.", "error");
+        return;
+      }
+
+      submitButton.disabled = true;
+      submitButton.textContent = "SAVING...";
+      showMessage("");
+
+      const {
+        data: { session }
+      } = await supabase.auth.getSession();
+
+      if (!session) {
+        showMessage("Your session expired. Please request a new invitation.", "error");
+        submitButton.disabled = false;
+        submitButton.textContent = "COMPLETE ACCOUNT SETUP";
+        return;
+      }
+
+      const fullName = `${firstName} ${lastName}`;
+
+      const { error } = await supabase
+        .from("profiles")
+        .update({ full_name: fullName })
+        .eq("id", session.user.id);
+
+      if (error) {
+        console.error("Profile update error:", error);
+        showMessage("We couldn't save your information. Please try again.", "error");
+        submitButton.disabled = false;
+        submitButton.textContent = "COMPLETE ACCOUNT SETUP";
+        return;
+      }
+
+      showMessage("Your profile is ready! Redirecting...", "success");
+
+      window.location.replace("/dashboard.html");
+    });
+
+    initializePage();
+  </script>
+</body>
+</html>
