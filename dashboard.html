@@ -527,10 +527,11 @@
 
         if (error) throw error;
 
-        if (!profile || !profile.full_name?.trim()) {
-          window.location.replace("/complete-profile.html");
-          return;
-        }
+       // if (!profile || !profile.full_name?.trim()) {
+        //  window.location.replace("/complete-profile.html");
+         // return;
+       // }
+       console.log("Dashboard file loaded");
 
         const fullName = profile.full_name.trim();
         const firstName = fullName.split(" ")[0];
