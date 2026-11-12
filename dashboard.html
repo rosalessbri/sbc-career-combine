@@ -4,11 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard | SBC Events</title>
+  <title>SBC Events | Dashboard</title>
 
   <style>
     @font-face {
-      font-family: "Industry";
+      font-family: Industry;
       src: url("/assets/fonts/IndustryTest-Bold.otf") format("opentype");
       font-weight: 700;
     }
@@ -16,9 +16,8 @@
     :root {
       --navy: #091d3c;
       --blue: #9dcbeb;
-      --gray: #c6c6c6;
       --white: #ffffff;
-      --light: #f4f7fb;
+      --light: #f3f6fa;
       --text: #18263a;
       --muted: #718096;
     }
@@ -30,33 +29,32 @@
     }
 
     body {
-      min-height: 100vh;
       background: var(--light);
       color: var(--text);
       font-family: Arial, sans-serif;
-    }
-
-    button, a {
-      font: inherit;
+      min-height: 100vh;
     }
 
     a {
-      color: inherit;
       text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      font-family: inherit;
     }
 
     .topbar {
       background: var(--navy);
       color: white;
-      padding: 18px 6%;
+      padding: 20px 6%;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 20px;
+      justify-content: space-between;
     }
 
     .brand {
-      font-family: "Industry", Arial, sans-serif;
+      font-family: Industry, Arial, sans-serif;
       font-size: 25px;
       letter-spacing: 1px;
     }
@@ -71,92 +69,91 @@
       gap: 20px;
     }
 
-    .account-email {
-      color: #d4deeb;
+    .user-email {
+      color: #cbd7e5;
       font-size: 13px;
     }
 
-    .logout-button {
+    .signout {
+      border: 1px solid rgba(255,255,255,.5);
       background: transparent;
-      border: 1px solid rgba(255,255,255,.45);
       color: white;
-      padding: 10px 17px;
-      border-radius: 5px;
+      padding: 10px 16px;
+      border-radius: 4px;
       cursor: pointer;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: .5px;
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 1px;
     }
 
-    .logout-button:hover {
+    .signout:hover {
       background: white;
       color: var(--navy);
     }
 
     main {
-      width: min(1100px, 88%);
+      width: 88%;
+      max-width: 1100px;
       margin: 0 auto;
       padding: 55px 0 75px;
     }
 
     .eyebrow {
-      color: #557da2;
+      color: #5a83a8;
       font-size: 11px;
-      font-weight: 700;
+      font-weight: bold;
       letter-spacing: 2px;
       text-transform: uppercase;
       margin-bottom: 13px;
     }
 
     .welcome h1 {
-      font-family: "Industry", Arial, sans-serif;
       color: var(--navy);
-      font-size: clamp(36px, 6vw, 54px);
+      font-family: Industry, Arial, sans-serif;
+      font-size: clamp(38px, 6vw, 58px);
       line-height: 1.05;
-      margin-bottom: 13px;
+      margin-bottom: 15px;
     }
 
     .welcome h1 span {
-      color: #5989b2;
+      color: #6799c2;
     }
 
     .welcome p {
       color: var(--muted);
       font-size: 15px;
       line-height: 1.7;
+      max-width: 570px;
     }
 
     .section-heading {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      margin: 48px 0 20px;
-      gap: 15px;
+      margin: 50px 0 22px;
     }
 
     .section-heading h2 {
       color: var(--navy);
-      font-family: "Industry", Arial, sans-serif;
-      font-size: 25px;
+      font-family: Industry, Arial, sans-serif;
+      font-size: 27px;
     }
 
     .section-heading p {
       color: var(--muted);
       font-size: 13px;
+      margin-top: 7px;
     }
 
     .event-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 20px;
+      gap: 22px;
     }
 
     .event-card {
       background: white;
-      border: 1px solid #e3eaf1;
-      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+      border-radius: 9px;
       overflow: hidden;
-      transition: transform .2s ease, box-shadow .2s ease;
+      transition: .2s ease;
     }
 
     .event-card:hover {
@@ -167,8 +164,8 @@
     .event-banner {
       background: var(--navy);
       color: white;
+      min-height: 165px;
       padding: 28px;
-      min-height: 155px;
       position: relative;
       overflow: hidden;
     }
@@ -178,56 +175,53 @@
       position: absolute;
       width: 190px;
       height: 190px;
-      border: 1px solid rgba(157,203,235,.3);
+      border: 1px solid rgba(157,203,235,.35);
       border-radius: 50%;
-      right: -65px;
+      right: -60px;
       top: -75px;
-      box-shadow: 0 0 0 20px rgba(157,203,235,.04),
-                  0 0 0 40px rgba(157,203,235,.04);
+      box-shadow: 0 0 0 20px rgba(157,203,235,.05),
+                  0 0 0 40px rgba(157,203,235,.05);
     }
 
-    .event-type {
+    .event-date {
       color: var(--blue);
       font-size: 10px;
-      font-weight: 700;
+      font-weight: bold;
       letter-spacing: 2px;
       text-transform: uppercase;
-      margin-bottom: 15px;
+      margin-bottom: 16px;
     }
 
     .event-banner h3 {
-      font-family: "Industry", Arial, sans-serif;
-      font-size: 29px;
-      line-height: 1.1;
+      font-family: Industry, Arial, sans-serif;
+      font-size: 32px;
+      line-height: 1.05;
       position: relative;
       z-index: 1;
     }
 
     .event-content {
-      padding: 24px;
+      padding: 25px;
     }
 
     .event-content p {
       color: var(--muted);
       font-size: 13px;
       line-height: 1.7;
-      min-height: 45px;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
 
     .event-link {
-      display: inline-flex;
-      align-items: center;
+      display: flex;
       justify-content: space-between;
-      width: 100%;
+      align-items: center;
       background: var(--navy);
       color: white;
-      padding: 14px 17px;
-      border-radius: 5px;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: .7px;
-      transition: background .2s ease;
+      padding: 15px 17px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 1px;
     }
 
     .event-link:hover {
@@ -236,120 +230,107 @@
 
     .event-link span {
       color: var(--blue);
-      font-size: 18px;
+      font-size: 19px;
     }
 
-    .account-section {
-      margin-top: 48px;
+    .account-card {
       background: white;
-      border: 1px solid #e3eaf1;
-      border-radius: 10px;
-      padding: 27px;
+      border: 1px solid #e2e8f0;
+      border-radius: 9px;
+      padding: 28px;
+      margin-top: 45px;
     }
 
-    .account-section h2 {
-      font-family: "Industry", Arial, sans-serif;
+    .account-card h2 {
       color: var(--navy);
-      font-size: 23px;
-      margin-bottom: 22px;
+      font-family: Industry, Arial, sans-serif;
+      font-size: 24px;
+      margin-bottom: 25px;
     }
 
     .account-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
     }
 
     .account-item label {
       display: block;
       color: var(--muted);
       font-size: 10px;
-      font-weight: 700;
+      font-weight: bold;
       letter-spacing: 1px;
       text-transform: uppercase;
-      margin-bottom: 8px;
+      margin-bottom: 9px;
     }
 
     .account-item p {
       color: var(--navy);
       font-size: 14px;
-      font-weight: 600;
+      font-weight: bold;
       overflow-wrap: anywhere;
     }
 
     .status {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
+      color: #27845f !important;
     }
 
-    .status::before {
-      content: "";
-      width: 7px;
-      height: 7px;
-      background: #36a779;
-      border-radius: 50%;
+    .notice {
+      display: none;
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 30px;
+      margin-top: 35px;
+      line-height: 1.7;
+    }
+
+    .notice h2 {
+      color: var(--navy);
+      font-family: Industry, Arial, sans-serif;
+      font-size: 25px;
+      margin-bottom: 10px;
+    }
+
+    .notice p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+
+    .action-link {
+      display: inline-block;
+      background: var(--navy);
+      color: white;
+      padding: 12px 18px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    #error-detail {
+      color: #a33;
+      font-size: 12px;
+      margin-top: 12px;
+      overflow-wrap: anywhere;
     }
 
     footer {
       background: var(--navy);
-      color: #c6d2e0;
+      color: #cbd7e5;
       text-align: center;
-      padding: 23px;
+      padding: 25px;
       font-size: 11px;
-      letter-spacing: .5px;
-    }
-
-    #loading-screen,
-    #error-screen {
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 30px;
-    }
-
-    #loading-screen {
-      color: var(--navy);
-      font-weight: 700;
-    }
-
-    #error-screen {
-      display: none;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    #error-screen h2 {
-      color: var(--navy);
-    }
-
-    #error-message {
-      color: var(--muted);
-      max-width: 450px;
-      line-height: 1.6;
-    }
-
-    .retry-link {
-      display: inline-block;
-      margin-top: 10px;
-      background: var(--navy);
-      color: white;
-      padding: 12px 20px;
-      border-radius: 5px;
-    }
-
-    #dashboard-content {
-      display: none;
+      letter-spacing: 1px;
     }
 
     @media (max-width: 700px) {
       .topbar {
-        padding: 16px 6%;
+        padding: 18px 6%;
       }
 
-      .account-email {
+      .user-email {
         display: none;
       }
 
@@ -362,13 +343,8 @@
         grid-template-columns: 1fr;
       }
 
-      .section-heading {
-        align-items: start;
-        flex-direction: column;
-      }
-
-      .account-section {
-        padding: 22px;
+      .account-grid {
+        gap: 20px;
       }
     }
   </style>
@@ -376,193 +352,197 @@
 
 <body>
 
-  <div id="loading-screen">
-    LOADING YOUR SBC DASHBOARD...
-  </div>
+  <header class="topbar">
+    <a href="/index.html" class="brand">SBC<span>.</span> EVENTS</a>
 
-  <div id="error-screen">
-    <h2>Unable to load your dashboard</h2>
-    <p id="error-message">
-      Something went wrong while loading your account.
-    </p>
-    <a class="retry-link" href="/login.html">RETURN TO LOGIN</a>
-  </div>
+    <div class="topbar-right">
+      <span class="user-email" id="header-email">Loading account...</span>
+      <button class="signout" id="signout-button">SIGN OUT</button>
+    </div>
+  </header>
 
-  <div id="dashboard-content">
+  <main>
 
-    <header class="topbar">
-      <a href="/dashboard.html" class="brand">
-        SBC<span>.</span> EVENTS
-      </a>
+    <section class="welcome">
+      <div class="eyebrow">Sports Business Conference · Penn State</div>
+      <h1>Welcome back,<br><span id="first-name">Attendee</span>.</h1>
+      <p>
+        Your SBC event experience starts here. Access your event information,
+        resources, and updates all in one place.
+      </p>
+    </section>
 
-      <div class="topbar-right">
-        <span class="account-email" id="header-email"></span>
-        <button class="logout-button" id="logout-button">
-          SIGN OUT
-        </button>
+    <section id="login-notice" class="notice">
+      <h2>Sign in to continue.</h2>
+      <p>You need to sign in to access your attendee account.</p>
+      <a href="/login.html" class="action-link">GO TO LOGIN</a>
+    </section>
+
+    <section id="profile-notice" class="notice">
+      <h2>Complete your profile.</h2>
+      <p>Before continuing, please add your name to your SBC Events account.</p>
+      <a href="/complete-profile.html" class="action-link">COMPLETE PROFILE</a>
+    </section>
+
+    <section id="event-section">
+      <div class="section-heading">
+        <div class="eyebrow">Your SBC Experience</div>
+        <h2>Your Events</h2>
+        <p>Choose an event to access its information and resources.</p>
       </div>
-    </header>
 
-    <main>
+      <div class="event-grid">
 
-      <section class="welcome">
-        <div class="eyebrow">Sports Business Conference · Penn State</div>
-        <h1>Welcome back,<br><span id="first-name">Attendee</span>.</h1>
-        <p>
-          Your SBC event experience starts here. Access your event information,
-          resources, and updates all in one place.
-        </p>
-      </section>
-
-      <section>
-        <div class="section-heading">
-          <div>
-            <div class="eyebrow">Your SBC Experience</div>
-            <h2>Your Events</h2>
+        <article class="event-card">
+          <div class="event-banner">
+            <div class="event-date">December 4, 2026</div>
+            <h3>Career<br>Combine</h3>
           </div>
-          <p>Choose an event to get started.</p>
+
+          <div class="event-content">
+            <p>
+              Your hub for the SBC Career Combine. Find event information,
+              schedules, resources, and more.
+            </p>
+            <a href="/career-combine/combine-index.html" class="event-link">
+              OPEN CAREER COMBINE <span>→</span>
+            </a>
+          </div>
+        </article>
+
+        <article class="event-card">
+          <div class="event-banner">
+            <div class="event-date">Spring 2027</div>
+            <h3>Speaker<br>Series</h3>
+          </div>
+
+          <div class="event-content">
+            <p>
+              Explore the SBC Spring Speaker Series and access information
+              for upcoming speaker events.
+            </p>
+            <a href="/speaker-series/speaker-index.html" class="event-link">
+              OPEN SPEAKER SERIES <span>→</span>
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="account-section" class="account-card">
+      <h2>Your Account</h2>
+
+      <div class="account-grid">
+        <div class="account-item">
+          <label>Full Name</label>
+          <p id="account-name">Loading...</p>
         </div>
 
-        <div class="event-grid">
-
-          <article class="event-card">
-            <div class="event-banner">
-              <div class="event-type">December 4, 2026</div>
-              <h3>Career<br>Combine</h3>
-            </div>
-
-            <div class="event-content">
-              <p>
-                Your hub for the SBC Career Combine. Find event information,
-                schedules, resources, and more.
-              </p>
-
-              <a href="/career-combine/combine-index.html" class="event-link">
-                OPEN CAREER COMBINE
-                <span>→</span>
-              </a>
-            </div>
-          </article>
-
-          <article class="event-card">
-            <div class="event-banner">
-              <div class="event-type">Spring 2027</div>
-              <h3>Speaker<br>Series</h3>
-            </div>
-
-            <div class="event-content">
-              <p>
-                Explore the SBC Spring Speaker Series and access information
-                for upcoming speaker events.
-              </p>
-
-              <a href="/speaker-series/speaker-index.html" class="event-link">
-                OPEN SPEAKER SERIES
-                <span>→</span>
-              </a>
-            </div>
-          </article>
-
-        </div>
-      </section>
-
-      <section class="account-section">
-        <h2>Your Account</h2>
-
-        <div class="account-grid">
-          <div class="account-item">
-            <label>Full Name</label>
-            <p id="account-name">—</p>
-          </div>
-
-          <div class="account-item">
-            <label>Email Address</label>
-            <p id="account-email">—</p>
-          </div>
-
-          <div class="account-item">
-            <label>Account Role</label>
-            <p id="account-role">Attendee</p>
-          </div>
+        <div class="account-item">
+          <label>Email Address</label>
+          <p id="account-email">Loading...</p>
         </div>
 
-        <div style="margin-top: 22px;">
-          <div class="account-item">
-            <label>Account Status</label>
-            <p class="status">Active</p>
-          </div>
+        <div class="account-item">
+          <label>Account Role</label>
+          <p id="account-role">Loading...</p>
         </div>
-      </section>
+      </div>
 
-    </main>
+      <div class="account-item" style="margin-top:25px;">
+        <label>Account Status</label>
+        <p class="status">Active</p>
+      </div>
 
-    <footer>
-      SPORTS BUSINESS CONFERENCE · PENN STATE
-    </footer>
+      <p id="error-detail"></p>
+    </section>
 
-  </div>
+  </main>
+
+  <footer>
+    SPORTS BUSINESS CONFERENCE · PENN STATE
+  </footer>
 
   <script type="module">
     import { supabase } from "/assets/js/supabase.js";
-    import { requireAuth, signOut } from "/assets/js/protected.js";
 
-    const loadingScreen = document.getElementById("loading-screen");
-    const dashboardContent = document.getElementById("dashboard-content");
-    const errorScreen = document.getElementById("error-screen");
-    const errorMessage = document.getElementById("error-message");
+    const loginNotice = document.getElementById("login-notice");
+    const profileNotice = document.getElementById("profile-notice");
+    const eventSection = document.getElementById("event-section");
+    const accountSection = document.getElementById("account-section");
+    const errorDetail = document.getElementById("error-detail");
 
-    async function initializeDashboard() {
+    async function loadDashboard() {
       try {
-        const session = await requireAuth();
+        const { data: { session }, error: sessionError } =
+          await supabase.auth.getSession();
 
-        if (!session) return;
+        if (sessionError) throw sessionError;
+
+        if (!session) {
+          loginNotice.style.display = "block";
+          eventSection.style.display = "none";
+          accountSection.style.display = "none";
+          document.getElementById("header-email").textContent = "Not signed in";
+          return;
+        }
 
         const user = session.user;
 
-        const { data: profile, error } = await supabase
+        document.getElementById("header-email").textContent =
+          user.email || "";
+
+        const { data: profile, error: profileError } = await supabase
           .from("profiles")
           .select("full_name, role")
           .eq("id", user.id)
           .maybeSingle();
 
-        if (error) throw error;
+        if (profileError) throw profileError;
 
-       // if (!profile || !profile.full_name?.trim()) {
-        //  window.location.replace("/complete-profile.html");
-         // return;
-       // }
-       console.log("Dashboard file loaded");
+        if (!profile || !profile.full_name?.trim()) {
+          profileNotice.style.display = "block";
+          eventSection.style.display = "none";
+          accountSection.style.display = "none";
+          return;
+        }
 
         const fullName = profile.full_name.trim();
         const firstName = fullName.split(" ")[0];
 
         document.getElementById("first-name").textContent = firstName;
         document.getElementById("account-name").textContent = fullName;
-        document.getElementById("account-email").textContent = user.email || "—";
-        document.getElementById("header-email").textContent = user.email || "";
-        document.getElementById("account-role").textContent =
-          profile.role
-            ? profile.role.charAt(0).toUpperCase() + profile.role.slice(1)
-            : "Attendee";
+        document.getElementById("account-email").textContent =
+          user.email || "—";
 
-        loadingScreen.style.display = "none";
-        dashboardContent.style.display = "block";
+        const role = profile.role || "attendee";
+
+        document.getElementById("account-role").textContent =
+          role.charAt(0).toUpperCase() + role.slice(1);
 
       } catch (error) {
-        console.error("Dashboard error:", error);
-
-        loadingScreen.style.display = "none";
-        errorScreen.style.display = "flex";
-        errorMessage.textContent =
-          "We couldn't retrieve your account information. Please try signing in again.";
+        console.error("Dashboard loading error:", error);
+        errorDetail.textContent =
+          "Account loading error: " + error.message;
       }
     }
 
-    document.getElementById("logout-button").addEventListener("click", async () => {
-      await signOut();
-    });
+    document.getElementById("signout-button").addEventListener(
+      "click",
+      async () => {
+        const { error } = await supabase.auth.signOut();
 
-    initializeDashboard();
+        if (error) {
+          errorDetail.textContent = error.message;
+          return;
+        }
+
+        window.location.href = "/login.html";
+      }
+    );
+
+    loadDashboard();
   </script>
 
 </body>
