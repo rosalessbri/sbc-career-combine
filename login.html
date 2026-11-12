@@ -4,82 +4,512 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#091d3c">
 
-  <title>SBC Events | Penn State</title>
+  <title>Attendee Login | SBC Events</title>
 
-  <link rel="stylesheet" href="/assets/css/style.css">
-  <script type="module" src="/assets/js/auth.js"></script>
+  <style>
+    @font-face {
+      font-family: "Industry";
+      src: url("/assets/fonts/IndustryTest-Bold.otf") format("opentype");
+      font-weight: 700;
+    }
+
+    @font-face {
+      font-family: "Industry Black";
+      src: url("/assets/fonts/IndustryTest-Black.otf") format("opentype");
+      font-weight: 900;
+    }
+
+    :root {
+      --navy: #091d3c;
+      --blue: #9dcbeb;
+      --gray: #c6c6c6;
+      --white: #ffffff;
+      --muted: #718096;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--navy);
+      color: var(--white);
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Header */
+
+    header {
+      min-height: 82px;
+      padding: 0 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,.13);
+    }
+
+    .brand {
+      font-family: Industry, Arial, sans-serif;
+      font-size: 25px;
+      letter-spacing: 1px;
+    }
+
+    .brand span {
+      color: var(--blue);
+    }
+
+    .home-link {
+      color: var(--gray);
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      transition: color .2s ease;
+    }
+
+    .home-link:hover {
+      color: var(--blue);
+    }
+
+    /* Main */
+
+    main {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      max-width: 1200px;
+      width: 88%;
+      margin: auto;
+      align-items: center;
+      gap: 70px;
+      padding: 65px 0;
+    }
+
+    /* Left side */
+
+    .intro {
+      max-width: 510px;
+    }
+
+    .eyebrow {
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .intro h1 {
+      font-family: "Industry Black", Industry, Arial, sans-serif;
+      font-size: clamp(48px, 7vw, 86px);
+      line-height: .91;
+      text-transform: uppercase;
+      margin: 20px 0;
+    }
+
+    .intro h1 span {
+      color: var(--blue);
+    }
+
+    .intro p {
+      color: var(--gray);
+      font-size: 14px;
+      line-height: 1.8;
+      max-width: 390px;
+    }
+
+    .intro-accent {
+      margin-top: 35px;
+      width: 65px;
+      height: 5px;
+      background: var(--blue);
+    }
+
+    /* Login card */
+
+    .login-card {
+      background: var(--white);
+      color: var(--navy);
+      padding: 42px;
+      border-radius: 7px;
+      box-shadow: 0 25px 60px rgba(0,0,0,.2);
+    }
+
+    .card-eyebrow {
+      color: #69819c;
+      font-size: 10px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .login-card h2 {
+      font-family: Industry, Arial, sans-serif;
+      font-size: 34px;
+      text-transform: uppercase;
+      margin: 13px 0 9px;
+    }
+
+    .card-description {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+      margin: 0 0 27px;
+    }
+
+    label {
+      display: block;
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 9px;
+    }
+
+    input {
+      width: 100%;
+      height: 51px;
+      padding: 0 15px;
+      border: 1px solid #d9e0e8;
+      border-radius: 4px;
+      background: #f8fafc;
+      color: var(--navy);
+      font-size: 15px;
+      outline: none;
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+
+    input:focus {
+      border-color: #6da8d3;
+      box-shadow: 0 0 0 3px rgba(157,203,235,.25);
+    }
+
+    #verification-code {
+      font-size: 25px;
+      font-weight: bold;
+      letter-spacing: 10px;
+      text-align: center;
+    }
+
+    button {
+      width: 100%;
+      min-height: 53px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 4px;
+      background: var(--navy);
+      color: white;
+      font-family: Industry, Arial, sans-serif;
+      font-size: 15px;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: background .2s ease, transform .2s ease;
+    }
+
+    button:hover {
+      background: #153966;
+      transform: translateY(-2px);
+    }
+
+    button:disabled {
+      opacity: .6;
+      cursor: wait;
+      transform: none;
+    }
+
+    .login-message {
+      min-height: 22px;
+      margin: 16px 0 0;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .login-message.error {
+      color: #b42318;
+    }
+
+    .login-message.success {
+      color: #167044;
+    }
+
+    .login-message.info {
+      color: #52657c;
+    }
+
+    .code-email {
+      overflow-wrap: anywhere;
+      color: var(--navy);
+    }
+
+    .back-button {
+      display: block;
+      width: fit-content;
+      margin-top: 20px;
+      padding: 0;
+      min-height: auto;
+      background: transparent;
+      color: #52657c;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      letter-spacing: 0;
+      text-align: left;
+    }
+
+    .back-button:hover {
+      background: transparent;
+      color: var(--navy);
+      transform: none;
+      text-decoration: underline;
+    }
+
+    .help-text {
+      margin-top: 25px;
+      padding-top: 20px;
+      border-top: 1px solid #e5eaf0;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    .help-text strong {
+      color: var(--navy);
+    }
+
+    /* Footer */
+
+    footer {
+      padding: 23px 6%;
+      border-top: 1px solid rgba(255,255,255,.13);
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      color: var(--gray);
+      font-size: 10px;
+      letter-spacing: .5px;
+    }
+
+    footer strong {
+      color: white;
+      font-family: Industry, Arial, sans-serif;
+      letter-spacing: 1px;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    /* Responsive */
+
+    @media (max-width: 800px) {
+      main {
+        grid-template-columns: 1fr;
+        gap: 35px;
+        width: min(500px, 90%);
+        padding: 45px 0;
+      }
+
+      .intro h1 {
+        font-size: 57px;
+      }
+
+      .intro p {
+        max-width: 100%;
+      }
+
+      .intro-accent {
+        margin-top: 22px;
+      }
+
+      .login-card {
+        padding: 30px 25px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 0 5%;
+      }
+
+      .brand {
+        font-size: 21px;
+      }
+
+      footer {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
 
-<body class="login-page">
+<body>
 
-  <header class="app-header">
-    <a href="/" class="brand" aria-label="SBC Events home">
-      <span class="brand-mark">SBC</span>
-      <span class="brand-divider"></span>
-      <span class="brand-name">EVENTS</span>
+  <!-- Header -->
+  <header>
+    <a href="/" class="brand">
+      SBC <span>EVENTS</span>
     </a>
-    <span class="header-label">PENN STATE</span>
+
+    <a href="/" class="home-link">
+      ← BACK TO HOME
+    </a>
   </header>
 
-  <main class="login-main">
+  <!-- Main -->
+  <main>
 
-    <section class="login-intro">
-      <p class="eyebrow">SPORTS BUSINESS CONFERENCE</p>
+    <!-- Intro -->
+    <section class="intro">
+      <div class="eyebrow">YOUR SBC EXPERIENCE STARTS HERE</div>
 
       <h1>
-        Your event.<br>
-        <span>Your access.</span>
+        WHERE<br>
+        SPORTS<br>
+        <span>BUSINESS</span><br>
+        CONNECTS.
       </h1>
 
-      <p class="intro-copy">
-        Your central hub for SBC events, connections,
-        and everything happening on event day.
+      <p>
+        Access your SBC event information, resources, and
+        experiences through your personalized attendee portal.
       </p>
+
+      <div class="intro-accent"></div>
     </section>
 
-    <section class="login-panel">
-      <div class="login-panel-heading">
-        <p class="eyebrow">ATTENDEE ACCESS</p>
-        <h2>Welcome to the Sports Business Conference at Penn State!</h2>
-        <p>Sign in using the email address you registered with.</p>
+    <!-- Login -->
+    <section class="login-card">
+
+      <!-- Step 1: Email -->
+      <div id="email-step">
+
+        <div class="card-eyebrow">ATTENDEE PORTAL</div>
+
+        <h2>Welcome Back.</h2>
+
+        <p class="card-description">
+          Enter the email address associated with your SBC
+          registration. We'll send you a 6-digit verification code.
+        </p>
+
+        <form id="login-form">
+
+          <label for="email">Email Address</label>
+
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="you@example.com"
+            autocomplete="email"
+            required
+          >
+
+          <button id="login-button" type="submit">
+            SEND VERIFICATION CODE
+          </button>
+
+        </form>
+
       </div>
 
-      <form id="login-form">
-        <label for="email">EMAIL ADDRESS</label>
+      <!-- Step 2: Verification code -->
+      <div id="code-step" hidden>
 
-        <input
-          type="email"
-          id="email"
-          name="email"
-          placeholder="you@example.com"
-          autocomplete="email"
-          required
+        <div class="card-eyebrow">EMAIL VERIFICATION</div>
+
+        <h2>Check Your Email.</h2>
+
+        <p class="card-description">
+          We've sent a 6-digit verification code to
+          <strong class="code-email" id="code-email"></strong>.
+          Enter it below to access your account.
+        </p>
+
+        <form id="verify-form">
+
+          <label for="verification-code">6-Digit Code</label>
+
+          <input
+            id="verification-code"
+            name="verification-code"
+            type="text"
+            inputmode="numeric"
+            autocomplete="one-time-code"
+            maxlength="6"
+            pattern="[0-9]{6}"
+            placeholder="000000"
+            required
+          >
+
+          <button id="verify-button" type="submit">
+            VERIFY CODE
+          </button>
+
+        </form>
+
+        <button
+          id="back-button"
+          class="back-button"
+          type="button"
         >
-
-        <button type="submit" id="login-button">
-          SEND SIGN-IN LINK
+          ← USE A DIFFERENT EMAIL
         </button>
 
-        <p id="login-message" class="login-message" aria-live="polite"></p>
-      </form>
-
-      <div class="login-note">
-        <span class="note-mark">i</span>
-        <p>
-          Access is reserved for registered SBC event attendees.
-          Use the email address associated with your registration.
-        </p>
       </div>
+
+      <!-- Status messages -->
+      <p
+        id="login-message"
+        class="login-message"
+        role="status"
+        aria-live="polite"
+      ></p>
+
+      <div class="help-text">
+        <strong>Need access?</strong><br>
+        SBC Events access is available to registered attendees
+        and authorized team members. If you haven't received an
+        invitation, contact the SBC team.
+      </div>
+
     </section>
 
   </main>
 
-  <footer class="app-footer">
-    <span>SBC · PENN STATE</span>
-    <span>BUILT TO BE UNRIVALED.</span>
+  <!-- Footer -->
+  <footer>
+    <strong>SPORTS BUSINESS CONFERENCE</strong>
+    <span>© 2026 SBC EVENTS · PENN STATE</span>
   </footer>
+
+  <!-- Authentication -->
+  <script type="module" src="/assets/js/auth.js"></script>
+
+  <script>
+    // Return to the email-entry step
+    document.querySelector("#back-button").addEventListener("click", () => {
+      document.querySelector("#code-step").hidden = true;
+      document.querySelector("#email-step").hidden = false;
+
+      document.querySelector("#verification-code").value = "";
+      document.querySelector("#login-message").textContent = "";
+      document.querySelector("#email").focus();
+    });
+
+    // Accept numeric input only
+    document.querySelector("#verification-code").addEventListener("input", (event) => {
+      event.target.value = event.target.value.replace(/\D/g, "").slice(0, 6);
+    });
+  </script>
 
 </body>
 </html>
