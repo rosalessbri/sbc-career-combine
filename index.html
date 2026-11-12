@@ -41,11 +41,12 @@
     }
 
     .topbar {
-      height: 76px;
+      min-height: 76px;
       padding: 0 7%;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 20px;
       background: var(--navy);
       color: white;
     }
@@ -66,6 +67,7 @@
       font-weight: 700;
       letter-spacing: 2px;
       text-transform: uppercase;
+      text-align: center;
     }
 
     .login-link {
@@ -75,6 +77,7 @@
       font-size: 12px;
       font-weight: 700;
       letter-spacing: 1px;
+      white-space: nowrap;
       transition: .2s ease;
     }
 
@@ -408,9 +411,13 @@
   <header class="topbar">
     <a href="/" class="logo">SBC<span>.</span></a>
 
-    <div class="topbar-label">Penn State Sports Business Conference</div>
+    <div class="topbar-label">
+      Penn State Sports Business Conference
+    </div>
 
-    <a href="/login.html" class="login-link">ATTENDEE LOGIN ↗</a>
+    <a href="/login.html" class="login-link" id="account-link">
+      ATTENDEE LOGIN ↗
+    </a>
   </header>
 
   <section class="hero">
@@ -438,13 +445,16 @@
         <h2>SELECT YOUR EVENT.</h2>
       </div>
 
-      <p class="section-note">Choose an event to get started.</p>
+      <p class="section-note">
+        Choose an event to get started.
+      </p>
     </div>
 
     <section class="events-grid">
 
       <!-- CAREER COMBINE -->
-      <a href="/career-combine/combine-index.html"
+      <a href="/login.html"
+         data-event-link="/career-combine/combine-index.html"
          class="event-card featured">
 
         <div class="event-top">
@@ -475,7 +485,8 @@
       </a>
 
       <!-- SPEAKER SERIES -->
-      <a href="/speaker-series/speaker-index.html"
+      <a href="/login.html"
+         data-event-link="/speaker-series/speaker-index.html"
          class="event-card">
 
         <div class="event-top">
@@ -508,11 +519,13 @@
 
     <section class="info-strip">
       <div>
-        <h3>Already registered for an event?</h3>
-        <p>Sign in with your registered email to access your event experience.</p>
+        <h3 id="info-heading">Already registered for an event?</h3>
+        <p id="info-description">
+          Sign in with your registered email to access your event experience.
+        </p>
       </div>
 
-      <a href="/login.html">Sign In →</a>
+      <a href="/login.html" id="info-link">Sign In →</a>
     </section>
   </main>
 
@@ -521,6 +534,52 @@
     <span>PENN STATE UNIVERSITY</span>
     <span>BUILT TO BE UNRIVALED.</span>
   </footer>
+
+  <script type="module">
+    import { supabase } from "/assets/js/supabase.js";
+
+    const accountLink = document.querySelector("#account-link");
+    const eventLinks = document.querySelectorAll("[data-event-link]");
+    const infoHeading = document.querySelector("#info-heading");
+    const infoDescription = document.querySelector("#info-description");
+    const infoLink = document.querySelector("#info-link");
+
+    async function updateHomepage() {
+      try {
+        const {
+          data: { session },
+          error
+        } = await supabase.auth.getSession();
+
+        if (error) {
+          throw error;
+        }
+
+        if (session) {
+          // Update account navigation
+          accountLink.textContent = "MY DASHBOARD →";
+          accountLink.href = "/dashboard.html";
+
+          // Allow signed-in users to enter event pages
+          eventLinks.forEach(link => {
+            link.href = link.dataset.eventLink;
+          });
+
+          // Update the sign-in information strip
+          infoHeading.textContent = "You're signed in.";
+          infoDescription.textContent =
+            "Head to your dashboard to access your SBC event resources.";
+          infoLink.textContent = "My Dashboard →";
+          infoLink.href = "/dashboard.html";
+        }
+
+      } catch (error) {
+        console.error("Homepage session check failed:", error);
+      }
+    }
+
+    updateHomepage();
+  </script>
 
 </body>
 </html>

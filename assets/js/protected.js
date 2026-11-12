@@ -17,5 +17,5 @@ export async function requireAuth() {
 
 export async function signOut() {
   await supabase.auth.signOut();
-  window.location.replace("/");
+  window.location.replace("/login.html");
 }
